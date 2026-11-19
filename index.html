@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O mică poveste</title>
+<style>
+  :root {
+    --ink: #3b1f2b;
+    --accent: #e0245e;
+    --card: rgba(255, 255, 255, 0.9);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: linear-gradient(135deg, #ffe3a3, #ffd1dc, #fcd5ce);
+    background-size: 300% 300%;
+    animation: drift 12s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+  @keyframes drift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .book { position: relative; z-index: 2; width: 100%; max-width: 560px; }
+  .page {
+    display: none;
+    background: var(--card);
+    backdrop-filter: blur(6px);
+    border-radius: 28px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(120, 30, 60, 0.22);
+  }
+  .page.active { display: block; animation: flip 0.6s ease; }
+  @keyframes flip {
+    from { transform: perspective(900px) rotateY(-25deg) translateX(40px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .page img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .body { padding: 28px 30px 32px; }
+  h1 { font-size: 1.7rem; margin: 0 0 12px; line-height: 1.25; }
+  p { font-size: 1.1rem; line-height: 1.6; margin: 0 0 22px; }
+  .small { font-size: 0.95rem; opacity: 0.75; }
+  .buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; min-height: 56px; }
+  button {
+    font: inherit;
+    font-size: 1.05rem;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .next { background: var(--accent); color: white; }
+  .next:hover { transform: scale(1.06); }
+  #no { background: #eee; color: var(--ink); }
+  .dots { display: flex; gap: 8px; justify-content: center; margin-top: 18px; }
+  .dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(59, 31, 43, 0.25); }
+  .dots span.on { background: var(--accent); }
+  ul { list-style: none; padding: 0; margin: 0 0 20px; font-size: 1.15rem; }
+  li { margin: 8px 0; }
+  .shake { animation: shake 0.5s ease; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+</style>
+</head>
+<body>
+<div class="book">
+
+  <section class="page active">
+    <img src="img/p1.jpg" alt="">
+    <div class="body">
+      <p class="small" id="greeting"></p>
+      <h1>Azi dimineață a fost o zi așa frumoasă afară ☀️</h1>
+      <p>Și am uitat să-ți transmit ceva: soarele îți urează mult spor la învățat și la tot ce faci.<br>Iar eu aștept cu nerăbdare să aflu ce ai reușit, cum a fost ziua ta, ce ai făcut, de ce te-ai bucurat.</p>
+      <div class="buttons"><button class="next">Și...? →</button></div>
+    </div>
+  </section>
+
+  <section class="page">
+    <img src="img/p2.jpg" alt="">
+    <div class="body">
+      <h1>Sper că ai avut o zi drăguță 🌙</h1>
+      <p>Ce ai făcut, ce ai învățat, dacă ai apucat să ieși puțin la soare...<br>M-am gândit ce face domnișoara aceasta atât de cute, cum e ziua ei, ce o bucură...</p>
+      <div class="buttons"><button class="next">Mai departe →</button></div>
+    </div>
+  </section>
+
+  <section class="page">
+    <img src="img/p3.jpg" alt="">
+    <div class="body">
+      <h1>Am vorbit cu ăia de la meteo 🌤️</h1>
+      <p>Mâine pare o zi frumoasă, cu soare, drăguță.</p>
+      <p>Și dacă e tot așa, ar vrea domnișoara să mergem mâine la Bocca Lupo?<br>Așa am șansa să descopăr și eu ce i-a plăcut domnișoarei acolo.</p>
+      <div class="buttons"><button class="next">La ce oră? →</button></div>
+    </div>
+  </section>
+
+  <section class="page">
+    <img src="img/p4.jpg" alt="">
+    <div class="body">
+      <h1>Mâine, la un 18 așa? 🍝</h1>
+      <div class="buttons"><button class="next">Hmm, dar dacă...? →</button></div>
+    </div>
+  </section>
+
+  <section class="page">
+    <img src="img/p5.jpg" alt="">
+    <div class="body">
+      <h1>Și dacă e departe? 🚗</h1>
+      <p>Dacă domnișoara îmi permite, vin eu să o iau cu mașina, mergem, și apoi o duc înapoi acasă. Rezolvăm.</p>
+      <div class="buttons"><button class="next">Ok, deci... →</button></div>
+    </div>
+  </section>
+
+  <section class="page" id="ask">
+    <div class="body" style="padding-top: 44px;">
+      <h1>Deci, ce zici? 🌹</h1>
+      <div class="buttons">
+        <button class="next" id="yes">Da!</button>
+        <button id="no">Nu</button>
+      </div>
+      <p class="small" id="hint" style="margin-top: 20px;"></p>
+    </div>
+  </section>
+
+  <section class="page" id="done">
+    <img src="img/p4.jpg" alt="">
+    <div class="body">
+      <p>Awwwwwwww 🤗</p>
+      <h1>We have a date 🫶</h1>
+      <p>Deci rămâne așa:</p>
+      <ul>
+        <li>📅 Mâine, la un 18 așa</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+  // ===== EDITEAZĂ =====
+  const HER_NAME = "";
+  // ====================
+
+  document.getElementById("greeting").textContent = HER_NAME ? `Hey, ${HER_NAME} 👋` : "";
+
+  const pages = Array.from(document.querySelectorAll(".page"));
+  const dots = document.getElementById("dots");
+  const countable = pages.length - 1;
+  for (let i = 0; i < countable; i++) dots.appendChild(document.createElement("span"));
+  let current = 0;
+
+  function show(i) {
+    pages[current].classList.remove("active");
+    current = i;
+    pages[current].classList.add("active");
+    dots.querySelectorAll("span").forEach((d, k) => d.classList.toggle("on", k === Math.min(current, countable - 1)));
+    dots.style.display = current === pages.length - 1 ? "none" : "flex";
+  }
+  show(0);
+
+  document.querySelectorAll(".next:not(#yes)").forEach((b) => b.addEventListener("click", () => show(current + 1)));
+
+  const no = document.getElementById("no");
+  const yes = document.getElementById("yes");
+  const hint = document.getElementById("hint");
+  const noTexts = ["Nu", "Ești sigură?", "Chiar sigură?", "Mai gândește-te!", "Ultima șansă!", "Te rog frumos?", "Zi da și gata!"];
+  const hints = ["", "Hmm...", "Butonul ăsta pare cam timid.", "Nu prea vrea să fie apăsat.", "Celălalt e mult mai simpatic.", "Serios, încearcă pe roz.", "🙏"];
+  let noCount = 0;
+
+  function dodge() {
+    noCount++;
+    const k = Math.min(noCount, noTexts.length - 1);
+    no.textContent = noTexts[k];
+    hint.textContent = hints[k];
+    yes.style.transform = `scale(${1 + noCount * 0.12})`;
+    const maxX = window.innerWidth - no.offsetWidth - 20;
+    const maxY = window.innerHeight - no.offsetHeight - 20;
+    document.body.appendChild(no);
+    no.style.position = "fixed";
+    no.style.zIndex = "5";
+    no.style.left = `${Math.random() * maxX}px`;
+    no.style.top = `${Math.random() * maxY}px`;
+    no.classList.remove("shake");
+    void no.offsetWidth;
+    no.classList.add("shake");
+  }
+  no.addEventListener("click", dodge);
+
+  yes.addEventListener("click", () => {
+    no.style.display = "none";
+    show(pages.length - 1);
+  });
+</script>
+</body>
+</html>
